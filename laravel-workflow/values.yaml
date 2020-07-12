@@ -4,8 +4,11 @@
 
 replicaCount: 1
 
+staticAssetsMountPath: /var/www/html
+
 image:
-  repository: nginx
+  repository: app
+  tag: tag
   pullPolicy: IfNotPresent
 
 imagePullSecrets: []

@@ -14,6 +14,23 @@ spec:
       labels:
         {{- include "laravel-workflow.selectorLabels" . | nindent 8 }}
     spec:
+      volumes:
+        - name: laravel-env
+          configMap:
+            name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}
+            items: 
+              - key: env
+                path: .env
+    {{- with .Values.staticAssetsMountPath }}
+      - name: shared-data
+        emptyDir: {}
+      initContainers:
+      - name: gitclone
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        volumeMounts:
+          - name: shared-data
+            mountPath: {{ .Values.staticAssetsMountPath }}
+    {{- end }}
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -25,22 +42,40 @@ spec:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
-          image: "{{ .Values.image.repository }}:{{ .Chart.AppVersion }}"
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: 80
               protocol: TCP
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+              - name: nginx
+          image: "nginx: {{ .Values.nginx.tag }}"
+        {{- with .Values.staticAssetsMountPath }}
+          volumeMounts:
+            - name: laravel-env
+              mountPath: /var/www/html/.env
+              subPath: .env
+        {{- end }}
           livenessProbe:
             httpGet:
               path: /
               port: http
+              initialDelaySeconds: 5
+              timeoutSeconds: 1
+              periodSeconds: 10
+              successThreshold: 1
+              failureThreshold: 10
           readinessProbe:
             httpGet:
               path: /
               port: http
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
+              initialDelaySeconds: 5
+              timeoutSeconds: 1
+              periodSeconds: 10
+              successThreshold: 1
+              failureThreshold: 10
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
