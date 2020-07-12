@@ -3,7 +3,7 @@ entries:
   laravel-workflow:
   - apiVersion: v2
     appVersion: 0.0.1
-    created: "2020-07-12T22:18:17.873761+08:00"
+    created: "2020-07-12T22:27:58.065375+08:00"
     dependencies:
     - name: redis
       repository: https://kubernetes-charts.storage.googleapis.com/
@@ -15,4 +15,4 @@ entries:
     urls:
     - https://github.com/DuC-cnZj/laravel-charts/laravel-workflow-0.1.0.tgz
     version: 0.1.0
-generated: "2020-07-12T22:18:17.862862+08:00"
+generated: "2020-07-12T22:27:58.058378+08:00"
