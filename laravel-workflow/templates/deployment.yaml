@@ -21,16 +21,30 @@ spec:
             items: 
               - key: env
                 path: .env
-    {{- with .Values.staticAssetsMountPath }}
+        - name: appconf
+          configMap:
+            name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}
+            items:
+              - key: nginx.conf
+                path: default.conf
+        - name: gitclone-sshkey
+          secret:
+            secretName: {{ .Release.Name | printf "%s-%s" .Chart.Name }}
+            items:
+              - key: sshkey
+                path: ssh
+    {{ if .Values.staticAssetsMount }}
         - name: shared-data
           emptyDir: {}
       initContainers:
       - name: static-mount
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        command: ["/bin/cp"]
+        args: ["-r", "/var/www/html", "/tmp/git"]
         volumeMounts:
           - name: shared-data
-            mountPath: {{ .Values.staticAssetsMountPath }}
-    {{- end }}
+            mountPath: /tmp/git
+    {{ end }}
     {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -45,37 +59,46 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - name: http
-              containerPort: 80
+            - name: fpm
+              containerPort: 9000
               protocol: TCP
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
-              - name: nginx
-          image: "nginx: {{ .Values.nginx.tag }}"
-        {{- with .Values.staticAssetsMountPath }}
           volumeMounts:
             - name: laravel-env
               mountPath: /var/www/html/.env
               subPath: .env
-        {{- end }}
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+        - name: nginx
+          image: "nginx:{{ .Values.nginx.tag }}"
+          volumeMounts:
+          - name: appconf
+            mountPath: /etc/nginx/conf.d
+        {{if .Values.staticAssetsMount }}
+          - name: shared-data
+            mountPath: /var/www
+        {{ end }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
           livenessProbe:
             httpGet:
               path: /
-              port: http
-              initialDelaySeconds: 5
-              timeoutSeconds: 1
-              periodSeconds: 10
-              successThreshold: 1
-              failureThreshold: 10
+              port: 80
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 10
           readinessProbe:
             httpGet:
               path: /
-              port: http
-              initialDelaySeconds: 5
-              timeoutSeconds: 1
-              periodSeconds: 10
-              successThreshold: 1
-              failureThreshold: 10
+              port: 80
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 10
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}

@@ -4,12 +4,18 @@
 
 replicaCount: 1
 
-staticAssetsMountPath: /var/www/html
+
+nginx:
+  tag: latest
 
 image:
   repository: app
   tag: tag
   pullPolicy: IfNotPresent
+
+
+# 是否挂载静态文件，如果项目依赖public目录下的css/html文件那么就需要开启
+staticAssetsMount: true
 
 imagePullSecrets: []
 nameOverride: ""
@@ -36,7 +42,7 @@ securityContext: {}
   # runAsUser: 1000
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 80
 
 ingress:
