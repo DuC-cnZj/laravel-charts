@@ -22,10 +22,10 @@ spec:
               - key: env
                 path: .env
     {{- with .Values.staticAssetsMountPath }}
-      - name: shared-data
-        emptyDir: {}
+        - name: shared-data
+          emptyDir: {}
       initContainers:
-      - name: gitclone
+      - name: static-mount
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         volumeMounts:
           - name: shared-data
