@@ -44,6 +44,8 @@ securityContext: {}
 service:
   type: NodePort
   port: 80
+  # if type == NodePort
+  nodePort: 30000
 
 ingress:
   enabled: false
