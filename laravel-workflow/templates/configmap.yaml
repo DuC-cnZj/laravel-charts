@@ -1,61 +1,70 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}
+  name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}-configmap
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade,post-delete,pre-rollback
 data:
   env: |
+      ######### k8s #########
       HELM_VERSION="{{ .Release.Name | printf "%s-%s" .Chart.Name }} in {{ .Release.Namespace }} namespace and chart version is {{ .Chart.Version }}.version2"
-      APP_NAME=laravel
-      # APP_ENV=local
-      APP_KEY=base64:KmhAOUPPMXdqQtjY+LkTOWeQMR45vNEEf89MvTj6t3U=
-      # APP_DEBUG=true
-      APP_URL=http://localhost
+      RELEASE_NAME={{ .Release.Name }}
+      CHART_NAME={{ .Chart.Name }}
+      RELEASE_NAMESPACE={{ .Release.Namespace }}
+      CHART_VERSION={{ .Chart.Version }}
 
-      LOG_CHANNEL=stderr
+      APP_NAME={{ .Values.envFile.APP_NAME }}
+      APP_ENV={{ .Values.envFile.APP_ENV }}
+      APP_KEY={{ .Values.envFile.APP_KEY }}
+      APP_DEBUG={{ default "false" .Values.envFile.APP_DEBUG }}
+      APP_URL={{ default "http://localhost" .Values.envFile.APP_URL }}
 
-      AUTHOR=duc
-      DB_CONNECTION=mysql
-      # DB_HOST=127.0.0.1
-      # DB_PORT=3306
-      # DB_DATABASE=laravel
-      # DB_USERNAME=root
-      # DB_PASSWORD=
+      LOG_CHANNEL={{ default "stderr" .Values.envFile.LOG_CHANNEL }}
 
-      DUC_NAME=dasdas
+      AUTHOR={{ default "duc" .Values.envFile.AUTHOR }}
 
-      BROADCAST_DRIVER=log
-      CACHE_DRIVER=file
-      QUEUE_CONNECTION=sync
-      SESSION_DRIVER=file
-      SESSION_LIFETIME=120
+      ####### mysql #######
+      DB_CONNECTION={{ default "mysql" .Values.envFile.DB_CONNECTION }}
+      # DB_HOST: "127.0.0.1"
+      # DB_PORT: "3306"
+      # DB_DATABASE: laravel
+      # DB_USERNAME: root
+      # DB_PASSWORD: 
 
-      REDIS_HOST=127.0.0.1
-      REDIS_PASSWORD=null
-      REDIS_PORT=6379
+      DUC_NAME={{ default "1234567" .Values.envFile.DUC_NAME }}
 
-      MAIL_MAILER=smtp
-      MAIL_HOST=smtp.mailtrap.io
-      MAIL_PORT=2525
-      MAIL_USERNAME=null
-      MAIL_PASSWORD=null
-      MAIL_ENCRYPTION=null
-      MAIL_FROM_ADDRESS=null
-      MAIL_FROM_NAME="${APP_NAME}"
+      BROADCAST_DRIVER={{ default "log" .Values.envFile.BROADCAST_DRIVER }}
+      CACHE_DRIVER={{ default "file" .Values.envFile.CACHE_DRIVER }}
+      QUEUE_CONNECTION={{ default "sync" .Values.envFile.QUEUE_CONNECTION }}
+      SESSION_DRIVER={{ default "file" .Values.envFile.SESSION_DRIVER }}
+      SESSION_LIFETIME={{ default "120" .Values.envFile.SESSION_LIFETIME }}
 
-      AWS_ACCESS_KEY_ID=
-      AWS_SECRET_ACCESS_KEY=
-      AWS_DEFAULT_REGION=us-east-1
-      AWS_BUCKET=
+      ####### redis #######
+      REDIS_HOST={{ default "127.0.0.1" .Values.envFile.REDIS_HOST }}
+      REDIS_PASSWORD={{ default "null" .Values.envFile.REDIS_PASSWORD }}
+      REDIS_PORT={{ default "6379" .Values.envFile.REDIS_PORT }}
 
-      PUSHER_APP_ID=
-      PUSHER_APP_KEY=
-      PUSHER_APP_SECRET=
-      PUSHER_APP_CLUSTER=mt1
+      MAIL_MAILER={{ default "smtp" .Values.envFile.MAIL_MAILER }}
+      MAIL_HOST={{ default "smtp.mailtrap.io" .Values.envFile.MAIL_HOST }}
+      MAIL_PORT={{ default "2525" .Values.envFile.MAIL_PORT }}
+      MAIL_USERNAME={{ default "null" .Values.envFile.MAIL_USERNAME }}
+      MAIL_PASSWORD={{ default "null" .Values.envFile.MAIL_PASSWORD }}
+      MAIL_ENCRYPTION={{ default "null" .Values.envFile.MAIL_ENCRYPTION }}
+      MAIL_FROM_ADDRESS={{ default "null" .Values.envFile.MAIL_FROM_ADDRESS }}
+      MAIL_FROM_NAME={{ default .Values.envFile.APP_NAME .Values.envFile.MAIL_FROM_NAME }}
 
-      MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
-      MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+      AWS_ACCESS_KEY_ID={{ .Values.envFile.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY={{ .Values.envFile.AWS_SECRET_ACCESS_KEY }}
+      AWS_DEFAULT "_REGION={{default "us-east-1" .Values.envFile.AWS_DEFAULT_REGION }}
+      AWS_BUCKET={{ .Values.envFile.AWS_BUCKET }}
+
+      PUSHER_APP_ID={{ .Values.envFile.PUSHER_APP_ID }}
+      PUSHER_APP_KEY={{ .Values.envFile.PUSHER_APP_KEY }}
+      PUSHER_APP_SECRET={{ .Values.envFile.PUSHER_APP_SECRET }}
+      PUSHER_APP_CLUSTER={{ default "mt1" .Values.envFile.PUSHER_APP_CLUSTER }}
+
+      MIX_PUSHER_APP_KEY={{ default .Values.envFile.PUSHER_APP_KEY .Values.envFile.MIX_PUSHER_APP_KEY }}
+      MIX_PUSHER_APP_CLUSTER={{ default .Values.envFile.PUSHER_APP_CLUSTER .Values.envFile.MIX_PUSHER_APP_CLUSTER }}
 
   nginx.conf: |
       server {
