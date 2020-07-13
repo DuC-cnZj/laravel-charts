@@ -56,6 +56,10 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
+            - name: enable_queue
+              value: {{ default "false" .Values.enable_queue | quote }}
+            - name: enable_cron
+              value: {{ default "false" .Values.enable_cron | quote }}
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:

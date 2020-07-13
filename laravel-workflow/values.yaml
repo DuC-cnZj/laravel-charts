@@ -4,6 +4,8 @@
 
 replicaCount: 1
 
+QUEUE_WORK: false
+RUN_CRON: false
 
 nginx:
   tag: latest
