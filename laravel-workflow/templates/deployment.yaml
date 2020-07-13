@@ -13,6 +13,9 @@ spec:
     metadata:
       labels:
         {{- include "laravel-workflow.selectorLabels" . | nindent 8 }}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secrets: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
     spec:
       volumes:
         - name: laravel-env

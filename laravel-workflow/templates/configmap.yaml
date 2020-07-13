@@ -3,10 +3,11 @@ kind: ConfigMap
 metadata:
   name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}
   annotations:
-    "helm.sh/hook": pre-install
+    "helm.sh/hook": pre-install,pre-upgrade,post-delete,pre-rollback
 data:
   env: |
-      APP_NAME=version1.11
+      HELM_VERSION="{{ .Release.Name | printf "%s-%s" .Chart.Name }} in {{ .Release.Namespace }} namespace and chart version is {{ .Chart.Version }}.version2"
+      APP_NAME=laravel
       # APP_ENV=local
       APP_KEY=base64:KmhAOUPPMXdqQtjY+LkTOWeQMR45vNEEf89MvTj6t3U=
       # APP_DEBUG=true
@@ -73,7 +74,7 @@ data:
           location ~ \.php$ {
             fastcgi_pass   localhost:9000;
             fastcgi_index  index.php;
-            fastcgi_param  SCRIPT_FILENAME  /var/www/html/public$fastcgi_script_name;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
             include        fastcgi_params;
           }
       }
