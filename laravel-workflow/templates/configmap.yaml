@@ -55,7 +55,7 @@ data:
 
       AWS_ACCESS_KEY_ID={{ .Values.envFile.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY={{ .Values.envFile.AWS_SECRET_ACCESS_KEY }}
-      AWS_DEFAULT "_REGION={{default "us-east-1" .Values.envFile.AWS_DEFAULT_REGION }}
+      AWS_DEFAULT_REGION={{ default "us-east-1" .Values.envFile.AWS_DEFAULT_REGION }}
       AWS_BUCKET={{ .Values.envFile.AWS_BUCKET }}
 
       PUSHER_APP_ID={{ .Values.envFile.PUSHER_APP_ID }}
