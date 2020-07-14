@@ -88,8 +88,8 @@ secrets:
     username: ZHVjCg== # echo "duc" | base64
     password: MTIzCg== # echo "123" | base64
 
-envFile:
-  APP_NAME: v2-duc-by
+envFile: |-
+  APP_NAME: laravel
   APP_ENV: local
   APP_KEY: base64:KmhAOUPPMXdqQtjY+LkTOWeQMR45vNEEf89MvTj6t3U
   APP_URL: http://localhost
