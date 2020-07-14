@@ -92,8 +92,8 @@ envFile: |-
   APP_NAME: laravel
   APP_ENV: local
   APP_KEY: base64:KmhAOUPPMXdqQtjY+LkTOWeQMR45vNEEf89MvTj6t3U
-  APP_URL: http://localhost
-  # APP_DEBUG: a
+  # APP_URL: http://localhost
+  # APP_DEBUG: true
 
   LOG_CHANNEL: stack
 

@@ -7,7 +7,7 @@ metadata:
 data:
   env: |
       ######### k8s #########
-      HELM_VERSION="{{ .Release.Name | printf "%s-%s" .Chart.Name }} in {{ .Release.Namespace }} namespace and chart version is {{ .Chart.Version }}.version2"
+      HELM_VERSION="{{ .Release.Name | printf "%s-%s" .Chart.Name }} in {{ .Release.Namespace }} namespace and chart version is {{ .Chart.Version }}."
       RELEASE_NAME={{ .Release.Name }}
       CHART_NAME={{ .Chart.Name }}
       RELEASE_NAMESPACE={{ .Release.Namespace }}
