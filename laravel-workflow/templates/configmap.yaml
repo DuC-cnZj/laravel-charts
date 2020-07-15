@@ -18,6 +18,7 @@ data:
       APP_KEY={{ .Values.envFile.APP_KEY }}
       APP_DEBUG={{ default "false" .Values.envFile.APP_DEBUG }}
       APP_URL={{ default "http://localhost" .Values.envFile.APP_URL }}
+      ASSET_URL={{ default "http://localhost" .Values.envFile.APP_URL }}
 
       LOG_CHANNEL={{ default "stderr" .Values.envFile.LOG_CHANNEL }}
 
