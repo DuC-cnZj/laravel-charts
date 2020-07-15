@@ -72,11 +72,11 @@ data:
       server {
           listen 80;
           
-        {{- if .Values.envFile.HELM_PREFIX -}}
+        {{ if .Values.envFile.HELM_PREFIX }}
           root /var/www/{{ .Values.envFile.HELM_PREFIX }}/html/public;
-        {{- else -}}}
+        {{ else }}}
           root /var/www/html/public;
-        {{- end -}}
+        {{ end }}
 
           index index.html index.php index.htm index.nginx-debian.html;
 
