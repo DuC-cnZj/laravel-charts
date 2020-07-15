@@ -103,7 +103,7 @@ spec:
         {{if .Values.staticAssetsMount }}
           - name: shared-data
           {{ if .Values.envFile.HELM_PREFIX  }}
-            mountPath: /var/www/html/public/{{ .Values.envFile.HELM_PREFIX }}
+            mountPath: /var/www/html/{{ .Values.envFile.HELM_PREFIX }}
           {{else}}
             mountPath: /var/www/html
           {{ end }}
