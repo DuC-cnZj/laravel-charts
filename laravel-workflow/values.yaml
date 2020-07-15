@@ -89,8 +89,6 @@ secrets:
     password: MTIzCg== # echo "123" | base64
 
 envFile:
-  HELM_PREFIX: ""
-
   APP_NAME: laravel
   APP_ENV: local
   APP_KEY: base64:KmhAOUPPMXdqQtjY+LkTOWeQMR45vNEEf89MvTj6t3U
