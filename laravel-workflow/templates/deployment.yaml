@@ -103,7 +103,6 @@ spec:
         {{if .Values.staticAssetsMount }}
           - name: shared-data
             mountPath: /var/www/html
-          {{ end }}
         {{ end }}
           ports:
             - name: http

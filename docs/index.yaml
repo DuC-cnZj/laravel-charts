@@ -3,9 +3,9 @@ entries:
   laravel-workflow:
   - apiVersion: v2
     appVersion: 0.0.6
-    created: "2020-07-15T20:20:14.3605+08:00"
+    created: "2020-07-15T20:48:21.911011+08:00"
     description: laravel Helm chart for Kubernetes. without crontab and queue.
-    digest: f18cd91ce33cc6a754f2846e5ffa99a125667921d0d95b4b0003fb051b195d28
+    digest: 678aa59b10d01fd8a4f42c14498b73463c8b9653dd8d4c3cef8b900cde860d51
     name: laravel-workflow
     type: application
     urls:
@@ -13,7 +13,7 @@ entries:
     version: 0.1.21
   - apiVersion: v2
     appVersion: 0.0.6
-    created: "2020-07-15T20:20:14.359425+08:00"
+    created: "2020-07-15T20:48:21.905009+08:00"
     description: laravel Helm chart for Kubernetes. without crontab and queue.
     digest: ef1750b3855f9febcceb042e9049defbabb6e75c40b858d1fd27fa29de112145
     name: laravel-workflow
@@ -21,4 +21,4 @@ entries:
     urls:
     - https://duc-cnzj.github.io/laravel-charts/laravel-workflow-0.1.20.tgz
     version: 0.1.20
-generated: "2020-07-15T20:20:14.356641+08:00"
+generated: "2020-07-15T20:48:21.897178+08:00"
