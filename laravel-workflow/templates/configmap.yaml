@@ -73,7 +73,7 @@ data:
           listen 80;
           
         {{- if .Values.envFile.HELM_PREFIX -}}
-          root /var/www/html/{{ .Values.envFile.HELM_PREFIX }}/public;
+          root /var/www/html/{{ .Values.envFile.HELM_PREFIX }}/html/public;
         {{- else -}}
           root /var/www/html/public;
         {{- end -}}
