@@ -12,7 +12,7 @@ data:
       CHART_NAME={{ .Chart.Name }}
       RELEASE_NAMESPACE={{ .Release.Namespace }}
       CHART_VERSION={{ .Chart.Version }}
-      RELEASE={{ .Chart.envFile.RELEASE }}
+      HELM_PREFIX={{ .Values.envFile.HELM_PREFIX }}
 
       APP_NAME={{ .Values.envFile.APP_NAME }}
       APP_ENV={{ .Values.envFile.APP_ENV }}
