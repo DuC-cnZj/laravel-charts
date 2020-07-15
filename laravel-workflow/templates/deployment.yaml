@@ -102,7 +102,7 @@ spec:
             mountPath: /etc/nginx/conf.d
         {{if .Values.staticAssetsMount }}
           - name: shared-data
-            mountPath: /var/www
+            mountPath: /var/www/{{ .Values.envFile.HELM_PREFIX }}
         {{ end }}
           ports:
             - name: http
