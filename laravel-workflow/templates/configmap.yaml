@@ -74,9 +74,9 @@ data:
           
         {{- if .Values.envFile.HELM_PREFIX -}}
           root /var/www/html/{{ .Values.envFile.HELM_PREFIX }}/public;
-        {{- else -}}}}
+        {{- else -}}
           root /var/www/html/public;
-        {{- end -}}}}
+        {{- end -}}
 
           index index.html index.php index.htm index.nginx-debian.html;
 
