@@ -72,11 +72,7 @@ data:
       server {
           listen 80;
           
-        {{ if .Values.envFile.HELM_PREFIX }}
-          root /var/www/{{ .Values.envFile.HELM_PREFIX }}/html/public;
-        {{ else }}}
           root /var/www/html/public;
-        {{ end }}
 
           index index.html index.php index.htm index.nginx-debian.html;
 
@@ -89,7 +85,7 @@ data:
           location ~ \.php$ {
             fastcgi_pass   localhost:9000;
             fastcgi_index  index.php;
-            fastcgi_param  SCRIPT_FILENAME  /var/www/html/public$fastcgi_script_name;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
             include        fastcgi_params;
           }
       }
