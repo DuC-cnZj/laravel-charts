@@ -73,8 +73,8 @@ data:
           listen 80;
           
         {{- if .Values.envFile.HELM_PREFIX -}}
-          root /var/www/html/{{ .Values.envFile.HELM_PREFIX }}/html/public;
-        {{- else -}}
+          root /var/www/{{ .Values.envFile.HELM_PREFIX }}/html/public;
+        {{- else -}}}
           root /var/www/html/public;
         {{- end -}}
 
@@ -82,7 +82,7 @@ data:
 
           client_max_body_size 20M;
 
-          location /{{ .Values.envFile.HELM_PREFIX }} {
+          location / {
               try_files $uri $uri/ /index.php$is_args$args;
           }
 
