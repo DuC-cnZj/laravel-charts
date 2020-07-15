@@ -82,7 +82,7 @@ data:
 
           client_max_body_size 20M;
 
-          location / {
+          location /{{ .Values.envFile.HELM_PREFIX }} {
               try_files $uri $uri/ /index.php$is_args$args;
           }
 
