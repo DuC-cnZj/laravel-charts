@@ -110,7 +110,7 @@ spec:
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.envFile.HELM_PREFIX }}/ping
               port: 80
             initialDelaySeconds: 5
             timeoutSeconds: 1
@@ -119,7 +119,7 @@ spec:
             failureThreshold: 10
           readinessProbe:
             httpGet:
-              path: /
+              path: {{ .Values.envFile.HELM_PREFIX }}/ping
               port: 80
             initialDelaySeconds: 5
             timeoutSeconds: 1
