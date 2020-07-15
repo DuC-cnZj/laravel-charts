@@ -72,11 +72,8 @@ data:
       server {
           listen 80;
           
-        {{ if .Values.envFile.HELM_PREFIX }}
-          root /var/www/html/{{.Values.envFile.HELM_PREFIX}}/public;
-        {{else}}
           root /var/www/html/public;
-        {{ end }}
+
           index index.html index.php index.htm index.nginx-debian.html;
 
           client_max_body_size 20M;
