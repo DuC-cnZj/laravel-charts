@@ -111,7 +111,7 @@ envFile:
   SESSION_DRIVER: file
   SESSION_LIFETIME: 120
 
-  REDIS_HOST: 127.0.0.1
+  REDIS_HOST: app-redis-master
   # REDIS_PASSWORD: 
   REDIS_PORT: 6379
 
@@ -136,3 +136,17 @@ envFile:
 
   MIX_PUSHER_APP_KEY: ${PUSHER_APP_KEY}
   MIX_PUSHER_APP_CLUSTER: ${PUSHER_APP_CLUSTER}
+
+
+
+#### redis #########
+redis:
+  cluster:
+    enabled: false
+  usePassword: false
+  master:
+    persistence: 
+      enabled: false
+  slave:
+    persistence: 
+      enabled: false
