@@ -41,7 +41,11 @@ data:
       SESSION_LIFETIME={{ default "120" .Values.envFile.SESSION_LIFETIME }}
 
       ####### redis #######
-      REDIS_HOST={{ default "127.0.0.1" .Values.envFile.REDIS_HOST }}
+      {{ if .Values.envFile.REDIS_HOST }}
+        REDIS_HOST={{ .Values.envFile.REDIS_HOST }}
+      {{ else }}
+        REDIS_HOST={{ .Release.Name }}-redis-master
+      {{ end }}
       REDIS_PASSWORD={{ default "null" .Values.envFile.REDIS_PASSWORD }}
       REDIS_PORT={{ default "6379" .Values.envFile.REDIS_PORT }}
 
