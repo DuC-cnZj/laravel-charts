@@ -3,13 +3,13 @@ entries:
   laravel-workflow:
   - apiVersion: v2
     appVersion: 0.0.6
-    created: "2020-07-16T16:03:46.277475+08:00"
+    created: "2020-07-17T10:34:42.441806+08:00"
     dependencies:
     - name: redis
       repository: https://charts.bitnami.com/bitnami
       version: 10.7.11
     description: laravel Helm chart for Kubernetes. without crontab and queue.
-    digest: f5a521d705d9922925d8b5bf7988b1c4f13be75b3306b3b171ba7ae59684942b
+    digest: f95f4cac29b1e27d991f686e70c2f6e1a7d6fb4089e89cc1dac5397e4180cd0b
     name: laravel-workflow
     type: application
     urls:
@@ -17,7 +17,7 @@ entries:
     version: 0.2.1
   - apiVersion: v2
     appVersion: 0.0.6
-    created: "2020-07-16T16:03:46.270845+08:00"
+    created: "2020-07-17T10:34:42.437434+08:00"
     dependencies:
     - name: redis
       repository: https://charts.bitnami.com/bitnami
@@ -31,7 +31,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 0.0.6
-    created: "2020-07-16T16:03:46.260085+08:00"
+    created: "2020-07-17T10:34:42.426676+08:00"
     description: laravel Helm chart for Kubernetes. without crontab and queue.
     digest: 678aa59b10d01fd8a4f42c14498b73463c8b9653dd8d4c3cef8b900cde860d51
     name: laravel-workflow
@@ -41,7 +41,7 @@ entries:
     version: 0.1.21
   - apiVersion: v2
     appVersion: 0.0.6
-    created: "2020-07-16T16:03:46.252256+08:00"
+    created: "2020-07-17T10:34:42.422646+08:00"
     description: laravel Helm chart for Kubernetes. without crontab and queue.
     digest: ef1750b3855f9febcceb042e9049defbabb6e75c40b858d1fd27fa29de112145
     name: laravel-workflow
@@ -49,4 +49,4 @@ entries:
     urls:
     - https://duc-cnzj.github.io/laravel-charts/laravel-workflow-0.1.20.tgz
     version: 0.1.20
-generated: "2020-07-16T16:03:46.246984+08:00"
+generated: "2020-07-17T10:34:42.415802+08:00"
