@@ -3,7 +3,21 @@ entries:
   laravel-workflow:
   - apiVersion: v2
     appVersion: 0.0.6
-    created: "2020-07-17T10:34:42.441806+08:00"
+    created: "2020-07-19T10:14:41.474906+08:00"
+    dependencies:
+    - name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 10.7.11
+    description: laravel Helm chart for Kubernetes. without crontab and queue.
+    digest: ad8255e52340553699f2cffd0d94f3f61d6a4b6167065c098bad003bc21b3d2b
+    name: laravel-workflow
+    type: application
+    urls:
+    - https://duc-cnzj.github.io/laravel-charts/laravel-workflow-0.2.2.tgz
+    version: 0.2.2
+  - apiVersion: v2
+    appVersion: 0.0.6
+    created: "2020-07-19T10:14:41.466555+08:00"
     dependencies:
     - name: redis
       repository: https://charts.bitnami.com/bitnami
@@ -17,7 +31,7 @@ entries:
     version: 0.2.1
   - apiVersion: v2
     appVersion: 0.0.6
-    created: "2020-07-17T10:34:42.437434+08:00"
+    created: "2020-07-19T10:14:41.454143+08:00"
     dependencies:
     - name: redis
       repository: https://charts.bitnami.com/bitnami
@@ -31,7 +45,7 @@ entries:
     version: 0.2.0
   - apiVersion: v2
     appVersion: 0.0.6
-    created: "2020-07-17T10:34:42.426676+08:00"
+    created: "2020-07-19T10:14:41.442749+08:00"
     description: laravel Helm chart for Kubernetes. without crontab and queue.
     digest: 678aa59b10d01fd8a4f42c14498b73463c8b9653dd8d4c3cef8b900cde860d51
     name: laravel-workflow
@@ -41,7 +55,7 @@ entries:
     version: 0.1.21
   - apiVersion: v2
     appVersion: 0.0.6
-    created: "2020-07-17T10:34:42.422646+08:00"
+    created: "2020-07-19T10:14:41.439825+08:00"
     description: laravel Helm chart for Kubernetes. without crontab and queue.
     digest: ef1750b3855f9febcceb042e9049defbabb6e75c40b858d1fd27fa29de112145
     name: laravel-workflow
@@ -49,4 +63,4 @@ entries:
     urls:
     - https://duc-cnzj.github.io/laravel-charts/laravel-workflow-0.1.20.tgz
     version: 0.1.20
-generated: "2020-07-17T10:34:42.415802+08:00"
+generated: "2020-07-19T10:14:41.432109+08:00"
