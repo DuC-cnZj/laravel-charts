@@ -11,7 +11,7 @@ spec:
       template:
         spec:
           containers:
-          - name: schedule_run
+          - name: schedulerun
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
             args:
             - /usr/local/bin/php
