@@ -41,6 +41,8 @@ spec:
             # 因为有单独的 cronjob 跑定时任务，所以容器内部不需要开启
             - name: RUN_CRON
               value: "false"
+            - name: RUN_PHP_FPM
+              value: "false"
             - name: QUEUE_WORK
               value: "true"
             - name: QUEUE_NUM
