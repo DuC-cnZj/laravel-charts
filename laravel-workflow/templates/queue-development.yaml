@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "laravel-workflow.fullname" . }}-queue
+  labels:
+    {{- include "laravel-workflow.labels" . | nindent 4 }}-queue
+spec:
+  replicas: {{ .Values.queue.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "laravel-workflow.selectorLabels" . | nindent 6 }}-queue
+  template:
+    metadata:
+      labels:
+        {{- include "laravel-workflow.selectorLabels" . | nindent 8 }}-queue
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+        checksum/secrets: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
+    spec:
+      volumes:
+        - name: laravel-env
+          configMap:
+            name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}-configmap
+            items: 
+              - key: env
+                path: .env
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "laravel-workflow.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: {{ .Chart.Name }}-queue
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            # 因为有单独的 cronjob 跑定时任务，所以容器内部不需要开启
+            - name: RUN_CRON
+              value: "false"
+            - name: QUEUE_WORK
+              value: "true"
+            - name: QUEUE_NUM
+              value: {{ .Values.queue.num }}
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}-secrets
+                  key: db_host
+            - name: DB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}-secrets
+                  key: db_port
+            - name: DB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}-secrets
+                  key: db_database
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}-secrets
+                  key: db_username
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}-secrets
+                  key: db_password
+          volumeMounts:
+            - name: laravel-env
+              mountPath: /var/www/html/.env
+              subPath: .env
+          resources:
+            {{- toYaml .Values.queue.resources.app | nindent 12 }}    

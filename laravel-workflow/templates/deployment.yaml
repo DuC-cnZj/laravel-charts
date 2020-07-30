@@ -56,10 +56,12 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: enable_queue
-              value: {{ default "false" .Values.enable_queue | quote }}
-            - name: enable_cron
-              value: {{ default "false" .Values.enable_cron | quote }}
+            # 因为有单独的 cronjob 跑定时任务，所以容器内部不需要开启
+            - name: RUN_CRON
+              value: "false"
+            # 因为有单独的 queue develop 跑队列，所以容器内部不需要开启
+            - name: QUEUE_WORK
+              value: "false"
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:

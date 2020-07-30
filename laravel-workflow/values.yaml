@@ -4,8 +4,13 @@
 
 replicaCount: 1
 
-QUEUE_WORK: false
-RUN_CRON: false
+cronjob:
+  enabled: true
+
+queue:
+  enabled: true
+  replicaCount: 1
+  num: 10
 
 nginx:
   tag: latest
