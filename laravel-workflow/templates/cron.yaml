@@ -15,8 +15,8 @@ spec:
           - name: schedulerun
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
             args:
-            - /usr/local/bin/php
-            - ./artisan
-            - schedule:run
+            - su - www-data
+            - -c
+            - "/usr/local/bin/php ./artisan schedule:run"
           restartPolicy: OnFailure
 {{- end }}
