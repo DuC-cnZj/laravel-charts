@@ -44,7 +44,7 @@ spec:
             - name: QUEUE_WORK
               value: "true"
             - name: QUEUE_NUM
-              value: {{ .Values.queue.num }}
+              value: {{ .Values.queue.num | quote}}
             - name: DB_HOST
               valueFrom:
                 secretKeyRef:
