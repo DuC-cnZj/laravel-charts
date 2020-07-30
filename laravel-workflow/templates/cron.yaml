@@ -2,7 +2,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ include "laravel-workflow.fullname" . }}
+  name: cronjob-{{ include "laravel-workflow.fullname" . }}
   labels:
     {{- include "laravel-workflow.labels" . | nindent 4 }}
 spec:
@@ -15,7 +15,7 @@ spec:
           - name: schedulerun
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
             args:
-            - /usr/sbin/usermod -s /bin/bash www-data && su - www-data
+            - su - www-data
             - -c
             - "/usr/local/bin/php ./artisan schedule:run"
           restartPolicy: OnFailure
