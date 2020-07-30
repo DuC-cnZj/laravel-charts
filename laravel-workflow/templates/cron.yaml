@@ -1,0 +1,20 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: {{ include "laravel-workflow.fullname" . }}
+  labels:
+    {{- include "laravel-workflow.labels" . | nindent 4 }}
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: schedule_run
+            image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+            args:
+            - /usr/local/bin/php
+            - ./artisan
+            - schedule:run
+          restartPolicy: OnFailure
