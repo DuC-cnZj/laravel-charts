@@ -75,4 +75,4 @@ spec:
               mountPath: /var/www/html/.env
               subPath: .env
           resources:
-            {{- toYaml .Values.queue.resources.app | nindent 12 }}    
+            {{- toYaml .Values.queue.resources | nindent 12 }}    
