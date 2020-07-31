@@ -16,23 +16,18 @@ data:
       APP_NAME={{ .Values.envFile.APP_NAME }}
       APP_ENV={{ .Values.envFile.APP_ENV }}
       APP_KEY={{ .Values.envFile.APP_KEY }}
-      APP_DEBUG={{ default "false" .Values.envFile.APP_DEBUG }}
-      APP_URL={{ default "http://localhost" .Values.envFile.APP_URL }}
-      ASSET_URL={{ default "http://localhost" .Values.envFile.APP_URL }}
+      APP_DEBUG={{ default "false" .Values.envFile.APP_DEBUG | quote }}
+      APP_URL={{ default "http://localhost" .Values.envFile.APP_URL | quote }}
 
       LOG_CHANNEL={{ default "stderr" .Values.envFile.LOG_CHANNEL }}
 
-      AUTHOR={{ default "duc" .Values.envFile.AUTHOR }}
-
       ####### mysql #######
       DB_CONNECTION={{ default "mysql" .Values.envFile.DB_CONNECTION }}
-      # DB_HOST: "127.0.0.1"
-      # DB_PORT: "3306"
-      # DB_DATABASE: laravel
-      # DB_USERNAME: root
-      # DB_PASSWORD: 
-
-      DUC_NAME={{ default "1234567" .Values.envFile.DUC_NAME }}
+      DB_HOST={{ default "127.0.0.1" .Values.envFile.DB_HOST }}
+      DB_PORT={{ default "3306" .Values.envFile.DB_PORT }}
+      DB_DATABASE={{ default "laravel" .Values.envFile.DB_DATABASE }}
+      DB_USERNAME={{ default "root" .Values.envFile.DB_USERNAME }}
+      DB_PASSWORD={{ .Values.envFile.DB_PASSWORD }}
 
       BROADCAST_DRIVER={{ default "log" .Values.envFile.BROADCAST_DRIVER }}
       CACHE_DRIVER={{ default "file" .Values.envFile.CACHE_DRIVER }}

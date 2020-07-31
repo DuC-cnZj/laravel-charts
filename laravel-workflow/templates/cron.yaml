@@ -11,6 +11,13 @@ spec:
     spec:
       template:
         spec:
+          volumes:
+          - name: laravel-env
+            configMap:
+              name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}-configmap
+              items: 
+                - key: env
+                  path: .env
           containers:
           - name: schedulerun
             image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -20,4 +27,8 @@ spec:
             - /var/www/html/artisan 
             - schedule:run
           restartPolicy: OnFailure
+          volumeMounts:
+            - name: laravel-env
+              mountPath: /var/www/html/.env
+              subPath: .env
 {{- end }}

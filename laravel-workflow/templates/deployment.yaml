@@ -15,7 +15,6 @@ spec:
         {{- include "laravel-workflow.selectorLabels" . | nindent 8 }}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
-        checksum/secrets: {{ include (print $.Template.BasePath "/secrets.yaml") . | sha256sum }}
     spec:
       volumes:
         - name: laravel-env
@@ -62,31 +61,6 @@ spec:
             # 因为有单独的 queue develop 跑队列，所以容器内部不需要开启
             - name: QUEUE_WORK
               value: "false"
-            - name: DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}-secrets
-                  key: db_host
-            - name: DB_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}-secrets
-                  key: db_port
-            - name: DB_DATABASE
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}-secrets
-                  key: db_database
-            - name: DB_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}-secrets
-                  key: db_username
-            - name: DB_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Release.Name | printf "%s-%s" .Chart.Name }}-secrets
-                  key: db_password
           volumeMounts:
             - name: laravel-env
               mountPath: /var/www/html/.env

@@ -102,30 +102,22 @@ tolerations: []
 
 affinity: {}
 
-secrets:
-  db:
-    host: bXlob3N0Cg== # echo "myhost" | base64
-    # port: MzMwNgo= # echo "3306" | base64
-    database: dGVzdAo= # echo "test" | base64
-    username: ZHVjCg== # echo "duc" | base64
-    password: MTIzCg== # echo "123" | base64
-
 envFile:
   APP_NAME: laravel
   APP_ENV: local
   APP_KEY: base64:KmhAOUPPMXdqQtjY+LkTOWeQMR45vNEEf89MvTj6t3U
-  # APP_URL: http://localhost
-  # APP_DEBUG: true
+  APP_URL: http://localhost
+  APP_DEBUG: false
 
   LOG_CHANNEL: stack
 
   # see secrets
-  # DB_CONNECTION: mysql
-  # DB_HOST: "127.0.0.1"
-  # DB_PORT: "3306"
-  # DB_DATABASE: laravel
-  # DB_USERNAME: root
-  # DB_PASSWORD: 
+  DB_CONNECTION: mysql
+  DB_HOST: "127.0.0.1"
+  DB_PORT: "3306"
+  DB_DATABASE: laravel
+  DB_USERNAME: root
+  DB_PASSWORD: 
 
   BROADCAST_DRIVER: log
   CACHE_DRIVER: file
